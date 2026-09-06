@@ -3,43 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Directorio de Sistemas | IndustriasTech</title>
+    <title>Directorio | IndustriasTech</title>
+    <!-- Favicon Profesional (Engranaje Tech) inyectado por código -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2310b981'/><circle cx='50' cy='50' r='25' fill='none' stroke='white' stroke-width='12' stroke-dasharray='20 10'/><circle cx='50' cy='50' r='10' fill='white'/></svg>">
     <style>
         :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --accent: #10b981;
-            --accent-hover: #059669;
-            --danger: #ef4444;
-            --border: #334155;
-            --admin: #f59e0b;
+            --bg-color: #0f172a; --card-bg: #1e293b; --text-main: #f8fafc;
+            --text-muted: #94a3b8; --accent: #10b981; --accent-hover: #059669;
+            --danger: #ef4444; --border: #334155; --admin: #f59e0b;
         }
 
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--bg-color); color: var(--text-main); margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
         
+        /* Animaciones de Carga (Spinners) */
+        .spinner { border: 3px solid rgba(255,255,255,0.1); border-top: 3px solid white; border-radius: 50%; width: 18px; height: 18px; animation: spin 1s linear infinite; display: inline-block; vertical-align: middle; margin-right: 8px; }
+        .spinner-large { width: 40px; height: 40px; border-width: 4px; border-top-color: var(--accent); margin: 0 auto 15px auto; display: block; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
         /* Login */
         #login-container { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; padding: 20px; }
-        .login-box { background-color: var(--card-bg); padding: 40px; border-radius: 12px; border: 1px solid var(--border); text-align: center; width: 100%; max-width: 350px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5); }
+        .login-box { background-color: var(--card-bg); padding: 40px; border-radius: 12px; border: 1px solid var(--border); text-align: center; width: 100%; max-width: 350px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5); min-height: 250px; display: flex; flex-direction: column; justify-content: center; }
         .login-box h2 { margin-top: 0; color: var(--accent); }
-        input[type="password"], input[type="text"], textarea, select { width: 90%; padding: 12px; margin: 10px 0; border-radius: 6px; border: 1px solid var(--border); background-color: var(--bg-color); color: var(--text-main); font-size: 14px; box-sizing: border-box; }
+        input[type="password"], input[type="text"], textarea { width: 100%; padding: 12px; margin: 10px 0; border-radius: 6px; border: 1px solid var(--border); background-color: var(--bg-color); color: var(--text-main); font-size: 14px; box-sizing: border-box; }
         
         .check-container { display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 14px; color: var(--text-muted); }
         .check-container input { width: auto; margin-right: 10px; }
 
-        button { background-color: var(--accent); color: white; border: none; padding: 12px 24px; border-radius: 6px; font-size: 16px; cursor: pointer; font-weight: bold; width: 100%; transition: background-color 0.3s; }
-        button:hover { background-color: var(--accent-hover); }
+        button { background-color: var(--accent); color: white; border: none; padding: 12px 24px; border-radius: 6px; font-size: 16px; cursor: pointer; font-weight: bold; width: 100%; transition: background-color 0.3s; display: flex; align-items: center; justify-content: center; }
+        button:hover:not(:disabled) { background-color: var(--accent-hover); }
+        button:disabled { opacity: 0.7; cursor: not-allowed; }
         .btn-danger { background-color: var(--danger); }
-        .btn-danger:hover { background-color: #dc2626; }
+        .btn-danger:hover:not(:disabled) { background-color: #dc2626; }
         .btn-admin { background-color: var(--admin); width: auto; margin-right: 10px;}
         
         /* Dashboard */
         #dashboard { display: none; padding: 40px 20px; max-width: 1200px; margin: 0 auto; width: 100%; box-sizing: border-box; }
         .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--border); padding-bottom: 20px; margin-bottom: 30px; flex-wrap: wrap; gap: 10px; }
-        .header h1 { margin: 0; color: var(--accent); }
-        .header-btns { display: flex; }
         
+        /* Enlace del Título (Home) */
+        .logo-link { color: var(--accent); text-decoration: none; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: opacity 0.3s; }
+        .logo-link:hover { opacity: 0.8; }
+        .logo-link h1 { margin: 0; font-size: 24px; }
+        
+        .header-btns { display: flex; }
         .search-bar { width: 100%; padding: 12px; border-radius: 6px; border: 1px solid var(--border); background-color: var(--card-bg); color: var(--text-main); font-size: 16px; margin-bottom: 30px; box-sizing: border-box; }
 
         /* Tarjetas */
@@ -52,17 +58,16 @@
         .meta-info strong { color: var(--accent); }
         .tag { display: inline-block; background-color: #3b82f6; color: white; font-size: 12px; padding: 4px 8px; border-radius: 4px; margin-right: 5px; margin-bottom: 5px; font-weight: bold; }
         
-        .btn-abrir { display: block; text-align: center; text-decoration: none; background-color: var(--border); color: var(--text-main); padding: 10px; border-radius: 6px; transition: 0.3s; margin-top: auto; }
+        .btn-abrir { display: block; text-align: center; text-decoration: none; background-color: var(--border); color: var(--text-main); padding: 10px; border-radius: 6px; transition: 0.3s; margin-top: auto; font-weight: bold; }
         .btn-abrir:hover { background-color: var(--text-muted); color: var(--bg-color); }
         .btn-eliminar { background-color: var(--danger); margin-top: 10px; display: none; }
         
-        #loading { color: var(--accent); font-weight: bold; margin-top: 15px; display: none; text-align: center; }
-
-        /* Modal Agregar */
-        #modal-agregar { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center; z-index: 1000; }
-        .modal-content { background: var(--card-bg); padding: 30px; border-radius: 10px; width: 90%; max-width: 500px; border: 1px solid var(--border); max-height: 90vh; overflow-y: auto; }
+        /* Modales (Agregar y Alertas) */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); justify-content: center; align-items: center; z-index: 1000; }
+        .modal-content { background: var(--card-bg); padding: 30px; border-radius: 10px; width: 90%; max-width: 500px; border: 1px solid var(--border); max-height: 90vh; overflow-y: auto; text-align: center; }
         .modal-content h3 { margin-top: 0; color: var(--accent); }
-        .modal-btns { display: flex; gap: 10px; margin-top: 20px; }
+        .modal-content p { color: var(--text-muted); margin-bottom: 20px; line-height: 1.5; }
+        .modal-btns { display: flex; gap: 10px; margin-top: 20px; justify-content: center; }
         
         #btn-add-float { display: none; margin-bottom: 20px; background-color: var(--accent); }
     </style>
@@ -72,37 +77,48 @@
     <!-- Pantalla de Login -->
     <div id="login-container">
         <div class="login-box">
-            <h2>IndustriasTech</h2>
-            <p>Bóveda de Sistemas</p>
-            <input type="password" id="passInput" placeholder="Contraseña maestra" onkeypress="handleEnter(event)">
-            <div class="check-container">
-                <input type="checkbox" id="recordarme">
-                <label for="recordarme">Mantener sesión iniciada</label>
+            <div id="login-ui">
+                <h2>IndustriasTech</h2>
+                <p>Bóveda de Sistemas</p>
+                <input type="password" id="passInput" placeholder="Contraseña maestra" onkeypress="handleEnter(event)">
+                <div class="check-container">
+                    <input type="checkbox" id="recordarme">
+                    <label for="recordarme">Mantener sesión iniciada</label>
+                </div>
+                <button id="btn-login" onclick="verificarAcceso()">Desencriptar Directorio</button>
             </div>
-            <button onclick="verificarAcceso()">Desencriptar Directorio</button>
-            <div id="loading">Autenticando y sincronizando...</div>
+            <!-- Estado de carga de Login -->
+            <div id="login-loading" style="display: none;">
+                <div class="spinner-large"></div>
+                <h3 style="color: var(--accent); margin:0;">Autenticando...</h3>
+                <p style="color: var(--text-muted); font-size:14px;">Conectando con la base de datos segura</p>
+            </div>
         </div>
     </div>
 
     <!-- Panel de Sistemas -->
     <div id="dashboard">
         <div class="header">
-            <h1>Directorio de Sistemas</h1>
+            <!-- Logo y Título como botón de inicio -->
+            <a onclick="irAlInicio()" class="logo-link">
+                <svg width="30" height="30" viewBox="0 0 100 100"><rect width="100" height="100" rx="20" fill="#10b981"/><circle cx="50" cy="50" r="25" fill="none" stroke="white" stroke-width="12" stroke-dasharray="20 10"/><circle cx="50" cy="50" r="10" fill="white"/></svg>
+                <h1>Directorio de Sistemas</h1>
+            </a>
             <div class="header-btns">
                 <button class="btn-admin" onclick="toggleAdmin()" id="btn-admin-toggle">⚙️ Modo Admin</button>
                 <button style="width: auto;" class="btn-danger" onclick="cerrarSesion()">Cerrar Sesión</button>
             </div>
         </div>
         
-        <button id="btn-add-float" onclick="abrirModal()">+ Agregar Nuevo Sistema</button>
+        <button id="btn-add-float" onclick="abrirModalAdd()">+ Agregar Nuevo Sistema</button>
         <input type="text" id="buscador" class="search-bar" placeholder="🔍 Buscar sistema por título o etiqueta..." onkeyup="filtrarSistemas()">
         
         <div class="grid" id="sistemas-grid"></div>
     </div>
 
     <!-- Modal Agregar -->
-    <div id="modal-agregar">
-        <div class="modal-content">
+    <div id="modal-agregar" class="modal-overlay">
+        <div class="modal-content" style="text-align: left;">
             <h3>Agregar Nuevo Sistema</h3>
             <input type="text" id="add-titulo" placeholder="Título del Sistema">
             <textarea id="add-desc" placeholder="Descripción corta" rows="3"></textarea>
@@ -113,8 +129,20 @@
             <input type="text" id="add-notas" placeholder="Notas técnicas o comandos">
             
             <div class="modal-btns">
-                <button onclick="agregarSistema()">Guardar Sistema</button>
-                <button class="btn-danger" onclick="cerrarModal()">Cancelar</button>
+                <button id="btn-guardar-sis" onclick="agregarSistema()">Guardar Sistema</button>
+                <button class="btn-danger" onclick="cerrarModalAdd()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Alerta / Confirmación Personalizado -->
+    <div id="modal-alerta" class="modal-overlay">
+        <div class="modal-content">
+            <h3 id="alerta-titulo">Atención</h3>
+            <p id="alerta-mensaje"></p>
+            <div class="modal-btns">
+                <button id="btn-alerta-ok" onclick="cerrarAlerta()">Aceptar</button>
+                <button id="btn-alerta-cancelar" class="btn-danger" style="display:none;" onclick="cerrarAlerta()">Cancelar</button>
             </div>
         </div>
     </div>
@@ -124,12 +152,52 @@
         let sistemasData = [];
         let pwdActual = "";
         let modoAdmin = false;
+        let accionConfirmada = null; // Guarda la función a ejecutar si aceptan
 
+        /* --- FUNCIONES DE INTERFAZ Y MODALES --- */
+        function mostrarAlerta(mensaje, titulo = "Aviso") {
+            document.getElementById('alerta-titulo').innerText = titulo;
+            document.getElementById('alerta-mensaje').innerText = mensaje;
+            document.getElementById('btn-alerta-cancelar').style.display = "none";
+            document.getElementById('btn-alerta-ok').onclick = cerrarAlerta;
+            document.getElementById('modal-alerta').style.display = "flex";
+        }
+
+        function mostrarConfirmacion(mensaje, titulo, funcionAlAceptar) {
+            document.getElementById('alerta-titulo').innerText = titulo;
+            document.getElementById('alerta-mensaje').innerText = mensaje;
+            document.getElementById('btn-alerta-cancelar').style.display = "block";
+            accionConfirmada = funcionAlAceptar;
+            
+            document.getElementById('btn-alerta-ok').onclick = function() {
+                if(accionConfirmada) accionConfirmada();
+            };
+            document.getElementById('modal-alerta').style.display = "flex";
+        }
+
+        function cerrarAlerta() {
+            document.getElementById('modal-alerta').style.display = "none";
+            accionConfirmada = null;
+            // Restaurar botón ok por si tenía spinner
+            document.getElementById('btn-alerta-ok').innerHTML = "Aceptar";
+            document.getElementById('btn-alerta-ok').disabled = false;
+        }
+
+        function irAlInicio() {
+            document.getElementById('buscador').value = '';
+            filtrarSistemas();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /* --- LOGIN Y AUTENTICACIÓN --- */
         function checkAutoLogin() {
             const guardada = localStorage.getItem("industrias_pwd");
             if(guardada) {
                 document.getElementById('passInput').value = guardada;
                 document.getElementById('recordarme').checked = true;
+                // Mostrar animación de inmediato antes de validar
+                document.getElementById('login-ui').style.display = 'none';
+                document.getElementById('login-loading').style.display = 'flex';
                 verificarAcceso();
             }
         }
@@ -138,10 +206,12 @@
 
         async function verificarAcceso() {
             const password = document.getElementById('passInput').value;
-            const loading = document.getElementById('loading');
-            if(!password) return alert("Ingresa la contraseña.");
+            if(!password) return mostrarAlerta("Ingresa la contraseña maestra para continuar.", "Contraseña Requerida");
 
-            loading.style.display = "block";
+            // UI de carga
+            document.getElementById('login-ui').style.display = 'none';
+            document.getElementById('login-loading').style.display = 'flex';
+
             try {
                 const res = await fetch(GAS_URL, {
                     method: 'POST',
@@ -163,22 +233,28 @@
                     mostrarDashboard();
                     renderizarTarjetas(sistemasData);
                 } else {
-                    alert(datos.message);
-                    localStorage.removeItem("industrias_pwd");
+                    mostrarAlerta("Contraseña incorrecta. Acceso denegado.", "Error de Seguridad");
+                    resetLoginUI();
                 }
             } catch (e) {
-                alert("Error de conexión con la base de datos.");
+                mostrarAlerta("No se pudo conectar con la base de datos segura. Revisa tu conexión.", "Error de Red");
+                resetLoginUI();
             }
-            loading.style.display = "none";
+        }
+
+        function resetLoginUI() {
+            localStorage.removeItem("industrias_pwd");
+            document.getElementById('login-loading').style.display = 'none';
+            document.getElementById('login-ui').style.display = 'block';
+            document.getElementById('passInput').value = "";
         }
 
         function cerrarSesion() {
-            localStorage.removeItem("industrias_pwd");
+            resetLoginUI();
             pwdActual = "";
             sistemasData = [];
             document.getElementById('dashboard').style.display = "none";
             document.getElementById('login-container').style.display = "flex";
-            document.getElementById('passInput').value = "";
             modoAdmin = false;
             actualizarUIAdmin();
         }
@@ -188,7 +264,7 @@
             document.getElementById('dashboard').style.display = "block";
         }
 
-        // Corrector de enlaces
+        /* --- RENDERIZADO Y UTILIDADES --- */
         function formatearEnlace(url) {
             if(!url) return "#";
             let link = url.trim();
@@ -204,7 +280,7 @@
                 let etiquetasHTML = "";
                 if(sistema.etiquetas) {
                     sistema.etiquetas.split(',').forEach(t => {
-                        etiquetasHTML += `<span class="tag">${t.trim()}</span>`;
+                        if(t.trim() !== "") etiquetasHTML += `<span class="tag">${t.trim()}</span>`;
                     });
                 }
 
@@ -215,14 +291,14 @@
                 card.innerHTML = `
                     <h3>${sistema.titulo}</h3>
                     <div style="margin-bottom: 10px;">${etiquetasHTML}</div>
-                    <p class="desc">${sistema.descripcion}</p>
+                    <p class="desc">${sistema.descripcion || "Sin descripción."}</p>
                     <div class="meta-info">
-                        <span><strong>Cuenta:</strong> ${sistema.cuenta}</span>
-                        <span><strong>Estado:</strong> ${sistema.estado}</span>
-                        <span><strong>Notas:</strong> ${sistema.notas}</span>
+                        <span><strong>Cuenta:</strong> ${sistema.cuenta || "N/A"}</span>
+                        <span><strong>Estado:</strong> ${sistema.estado || "N/A"}</span>
+                        <span><strong>Notas:</strong> ${sistema.notas || "N/A"}</span>
                     </div>
                     <a href="${linkCorregido}" target="_blank" class="btn-abrir">Abrir en Colab 🚀</a>
-                    <button class="btn-eliminar" onclick="eliminarSistema(${sistema.fila})">🗑️ Eliminar</button>
+                    <button class="btn-eliminar" onclick="iniciarEliminacion(${sistema.fila})">🗑️ Eliminar Sistema</button>
                 `;
                 grid.appendChild(card);
             });
@@ -231,11 +307,11 @@
 
         function filtrarSistemas() {
             const texto = document.getElementById('buscador').value.toLowerCase();
-            const filtrados = sistemasData.filter(s => (s.titulo + " " + s.etiquetas + " " + s.descripcion).toLowerCase().includes(texto));
+            const filtrados = sistemasData.filter(s => (s.titulo + " " + (s.etiquetas||"") + " " + (s.descripcion||"")).toLowerCase().includes(texto));
             renderizarTarjetas(filtrados);
         }
 
-        /* --- FUNCIONES ADMINISTRADOR --- */
+        /* --- FUNCIONES ADMINISTRADOR (CRUD) --- */
         function toggleAdmin() {
             modoAdmin = !modoAdmin;
             actualizarUIAdmin();
@@ -247,7 +323,7 @@
             const btnsDelete = document.querySelectorAll('.btn-eliminar');
 
             if(modoAdmin) {
-                btnToggle.innerText = "❌ Salir Admin";
+                btnToggle.innerText = "❌ Salir de Admin";
                 btnAdd.style.display = "block";
                 btnsDelete.forEach(b => b.style.display = "block");
             } else {
@@ -257,47 +333,86 @@
             }
         }
 
-        function abrirModal() { document.getElementById('modal-agregar').style.display = "flex"; }
-        function cerrarModal() { document.getElementById('modal-agregar').style.display = "none"; }
+        function abrirModalAdd() { document.getElementById('modal-agregar').style.display = "flex"; }
+        function cerrarModalAdd() { document.getElementById('modal-agregar').style.display = "none"; }
 
         async function agregarSistema() {
-            const btn = event.target;
-            btn.innerText = "Guardando...";
+            const btn = document.getElementById('btn-guardar-sis');
+            const tituloVal = document.getElementById('add-titulo').value;
+            
+            if(!tituloVal) return mostrarAlerta("El título es obligatorio para guardar un sistema.", "Campo Incompleto");
+
+            // Estado de carga en el botón
+            btn.innerHTML = `<div class="spinner"></div> Guardando...`;
+            btn.disabled = true;
             
             const payload = {
-                password: pwdActual,
-                accion: 'agregar_sistema',
-                titulo: document.getElementById('add-titulo').value,
-                descripcion: document.getElementById('add-desc').value,
-                enlace: document.getElementById('add-enlace').value,
-                cuenta: document.getElementById('add-cuenta').value,
-                etiquetas: document.getElementById('add-tags').value,
-                estado: document.getElementById('add-estado').value,
-                notas: document.getElementById('add-notas').value
+                password: pwdActual, accion: 'agregar_sistema', titulo: tituloVal,
+                descripcion: document.getElementById('add-desc').value, enlace: document.getElementById('add-enlace').value,
+                cuenta: document.getElementById('add-cuenta').value, etiquetas: document.getElementById('add-tags').value,
+                estado: document.getElementById('add-estado').value, notas: document.getElementById('add-notas').value
             };
 
-            await fetch(GAS_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: new URLSearchParams(payload)
-            });
-
-            // Limpiar form y recargar
-            document.querySelectorAll('#modal-agregar input, #modal-agregar textarea').forEach(i => i.value = '');
-            btn.innerText = "Guardar Sistema";
-            cerrarModal();
-            verificarAcceso(); // Recargar datos
+            try {
+                await fetch(GAS_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: new URLSearchParams(payload)
+                });
+                
+                // Limpiar form
+                document.querySelectorAll('#modal-agregar input, #modal-agregar textarea').forEach(i => i.value = '');
+                cerrarModalAdd();
+                // Recargar datos sin ir al login
+                await recargarDatosSilencioso();
+            } catch (e) {
+                mostrarAlerta("Hubo un error al intentar guardar el sistema.", "Error");
+            }
+            
+            btn.innerHTML = "Guardar Sistema";
+            btn.disabled = false;
         }
 
-        async function eliminarSistema(fila) {
-            if(!confirm("¿Estás seguro de que quieres eliminar este sistema?")) return;
+        function iniciarEliminacion(fila) {
+            mostrarConfirmacion(
+                "¿Estás completamente seguro de que deseas eliminar este sistema? Esta acción borrará el registro de la bóveda de datos y no se puede deshacer.",
+                "Confirmar Eliminación",
+                function() { ejecutarEliminacion(fila); }
+            );
+        }
+
+        async function ejecutarEliminacion(fila) {
+            const btnOk = document.getElementById('btn-alerta-ok');
+            btnOk.innerHTML = `<div class="spinner"></div> Eliminando...`;
+            btnOk.disabled = true;
+            document.getElementById('btn-alerta-cancelar').style.display = "none";
             
-            await fetch(GAS_URL, {
+            try {
+                await fetch(GAS_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: new URLSearchParams({ password: pwdActual, accion: 'eliminar_sistema', fila: fila })
+                });
+                cerrarAlerta();
+                await recargarDatosSilencioso();
+            } catch(e) {
+                cerrarAlerta();
+                mostrarAlerta("Fallo al eliminar el sistema.", "Error");
+            }
+        }
+
+        // Función para recargar la grilla sin pasar por la pantalla de login
+        async function recargarDatosSilencioso() {
+            const res = await fetch(GAS_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: new URLSearchParams({ password: pwdActual, accion: 'eliminar_sistema', fila: fila })
+                body: new URLSearchParams({ 'password': pwdActual, 'accion': 'leer_sistemas' })
             });
-            verificarAcceso(); // Recargar datos
+            const datos = await res.json();
+            if(datos.status === "success") {
+                sistemasData = datos.data;
+                filtrarSistemas(); // Mantiene la búsqueda si había alguna y renderiza
+            }
         }
     </script>
 </body>
