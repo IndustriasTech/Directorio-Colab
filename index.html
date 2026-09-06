@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Directorio | IndustriasTech</title>
-    <!-- Favicon Profesional (Engranaje Tech) inyectado por código -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2310b981'/><circle cx='50' cy='50' r='25' fill='none' stroke='white' stroke-width='12' stroke-dasharray='20 10'/><circle cx='50' cy='50' r='10' fill='white'/></svg>">
     <style>
         :root {
@@ -15,12 +14,10 @@
 
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--bg-color); color: var(--text-main); margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
         
-        /* Animaciones de Carga (Spinners) */
         .spinner { border: 3px solid rgba(255,255,255,0.1); border-top: 3px solid white; border-radius: 50%; width: 18px; height: 18px; animation: spin 1s linear infinite; display: inline-block; vertical-align: middle; margin-right: 8px; }
         .spinner-large { width: 40px; height: 40px; border-width: 4px; border-top-color: var(--accent); margin: 0 auto 15px auto; display: block; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* Login */
         #login-container { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; padding: 20px; }
         .login-box { background-color: var(--card-bg); padding: 40px; border-radius: 12px; border: 1px solid var(--border); text-align: center; width: 100%; max-width: 350px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5); min-height: 250px; display: flex; flex-direction: column; justify-content: center; }
         .login-box h2 { margin-top: 0; color: var(--accent); }
@@ -36,11 +33,9 @@
         .btn-danger:hover:not(:disabled) { background-color: #dc2626; }
         .btn-admin { background-color: var(--admin); width: auto; margin-right: 10px;}
         
-        /* Dashboard */
         #dashboard { display: none; padding: 40px 20px; max-width: 1200px; margin: 0 auto; width: 100%; box-sizing: border-box; }
         .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--border); padding-bottom: 20px; margin-bottom: 30px; flex-wrap: wrap; gap: 10px; }
         
-        /* Enlace del Título (Home) */
         .logo-link { color: var(--accent); text-decoration: none; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: opacity 0.3s; }
         .logo-link:hover { opacity: 0.8; }
         .logo-link h1 { margin: 0; font-size: 24px; }
@@ -48,7 +43,6 @@
         .header-btns { display: flex; }
         .search-bar { width: 100%; padding: 12px; border-radius: 6px; border: 1px solid var(--border); background-color: var(--card-bg); color: var(--text-main); font-size: 16px; margin-bottom: 30px; box-sizing: border-box; }
 
-        /* Tarjetas */
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
         .card { background-color: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 20px; display: flex; flex-direction: column; position: relative; }
         .card h3 { margin: 0 0 10px 0; font-size: 20px; }
@@ -62,7 +56,6 @@
         .btn-abrir:hover { background-color: var(--text-muted); color: var(--bg-color); }
         .btn-eliminar { background-color: var(--danger); margin-top: 10px; display: none; }
         
-        /* Modales (Agregar y Alertas) */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); justify-content: center; align-items: center; z-index: 1000; }
         .modal-content { background: var(--card-bg); padding: 30px; border-radius: 10px; width: 90%; max-width: 500px; border: 1px solid var(--border); max-height: 90vh; overflow-y: auto; text-align: center; }
         .modal-content h3 { margin-top: 0; color: var(--accent); }
@@ -74,7 +67,6 @@
 </head>
 <body onload="checkAutoLogin()">
 
-    <!-- Pantalla de Login -->
     <div id="login-container">
         <div class="login-box">
             <div id="login-ui">
@@ -87,7 +79,6 @@
                 </div>
                 <button id="btn-login" onclick="verificarAcceso()">Desencriptar Directorio</button>
             </div>
-            <!-- Estado de carga de Login -->
             <div id="login-loading" style="display: none;">
                 <div class="spinner-large"></div>
                 <h3 style="color: var(--accent); margin:0;">Autenticando...</h3>
@@ -96,11 +87,10 @@
         </div>
     </div>
 
-    <!-- Panel de Sistemas -->
     <div id="dashboard">
         <div class="header">
-            <!-- Logo y Título como botón de inicio -->
-            <a onclick="irAlInicio()" class="logo-link">
+            <!-- Título con enlace directo para recargar la página -->
+            <a href="https://industriastech.github.io/Directorio-Colab/" class="logo-link">
                 <svg width="30" height="30" viewBox="0 0 100 100"><rect width="100" height="100" rx="20" fill="#10b981"/><circle cx="50" cy="50" r="25" fill="none" stroke="white" stroke-width="12" stroke-dasharray="20 10"/><circle cx="50" cy="50" r="10" fill="white"/></svg>
                 <h1>Directorio de Sistemas</h1>
             </a>
@@ -116,7 +106,6 @@
         <div class="grid" id="sistemas-grid"></div>
     </div>
 
-    <!-- Modal Agregar -->
     <div id="modal-agregar" class="modal-overlay">
         <div class="modal-content" style="text-align: left;">
             <h3>Agregar Nuevo Sistema</h3>
@@ -135,7 +124,6 @@
         </div>
     </div>
 
-    <!-- Modal de Alerta / Confirmación Personalizado -->
     <div id="modal-alerta" class="modal-overlay">
         <div class="modal-content">
             <h3 id="alerta-titulo">Atención</h3>
@@ -152,9 +140,8 @@
         let sistemasData = [];
         let pwdActual = "";
         let modoAdmin = false;
-        let accionConfirmada = null; // Guarda la función a ejecutar si aceptan
+        let accionConfirmada = null; 
 
-        /* --- FUNCIONES DE INTERFAZ Y MODALES --- */
         function mostrarAlerta(mensaje, titulo = "Aviso") {
             document.getElementById('alerta-titulo').innerText = titulo;
             document.getElementById('alerta-mensaje').innerText = mensaje;
@@ -178,24 +165,15 @@
         function cerrarAlerta() {
             document.getElementById('modal-alerta').style.display = "none";
             accionConfirmada = null;
-            // Restaurar botón ok por si tenía spinner
             document.getElementById('btn-alerta-ok').innerHTML = "Aceptar";
             document.getElementById('btn-alerta-ok').disabled = false;
         }
 
-        function irAlInicio() {
-            document.getElementById('buscador').value = '';
-            filtrarSistemas();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        /* --- LOGIN Y AUTENTICACIÓN --- */
         function checkAutoLogin() {
             const guardada = localStorage.getItem("industrias_pwd");
             if(guardada) {
                 document.getElementById('passInput').value = guardada;
                 document.getElementById('recordarme').checked = true;
-                // Mostrar animación de inmediato antes de validar
                 document.getElementById('login-ui').style.display = 'none';
                 document.getElementById('login-loading').style.display = 'flex';
                 verificarAcceso();
@@ -208,7 +186,6 @@
             const password = document.getElementById('passInput').value;
             if(!password) return mostrarAlerta("Ingresa la contraseña maestra para continuar.", "Contraseña Requerida");
 
-            // UI de carga
             document.getElementById('login-ui').style.display = 'none';
             document.getElementById('login-loading').style.display = 'flex';
 
@@ -216,7 +193,8 @@
                 const res = await fetch(GAS_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: new URLSearchParams({ 'password': password, 'accion': 'leer_sistemas' })
+                    body: new URLSearchParams({ 'password': password, 'accion': 'leer_sistemas' }),
+                    redirect: 'follow'
                 });
                 const datos = await res.json();
 
@@ -264,7 +242,6 @@
             document.getElementById('dashboard').style.display = "block";
         }
 
-        /* --- RENDERIZADO Y UTILIDADES --- */
         function formatearEnlace(url) {
             if(!url) return "#";
             let link = url.trim();
@@ -311,7 +288,6 @@
             renderizarTarjetas(filtrados);
         }
 
-        /* --- FUNCIONES ADMINISTRADOR (CRUD) --- */
         function toggleAdmin() {
             modoAdmin = !modoAdmin;
             actualizarUIAdmin();
@@ -342,7 +318,6 @@
             
             if(!tituloVal) return mostrarAlerta("El título es obligatorio para guardar un sistema.", "Campo Incompleto");
 
-            // Estado de carga en el botón
             btn.innerHTML = `<div class="spinner"></div> Guardando...`;
             btn.disabled = true;
             
@@ -357,13 +332,12 @@
                 await fetch(GAS_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: new URLSearchParams(payload)
+                    body: new URLSearchParams(payload),
+                    redirect: 'follow'
                 });
                 
-                // Limpiar form
                 document.querySelectorAll('#modal-agregar input, #modal-agregar textarea').forEach(i => i.value = '');
                 cerrarModalAdd();
-                // Recargar datos sin ir al login
                 await recargarDatosSilencioso();
             } catch (e) {
                 mostrarAlerta("Hubo un error al intentar guardar el sistema.", "Error");
@@ -391,7 +365,8 @@
                 await fetch(GAS_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: new URLSearchParams({ password: pwdActual, accion: 'eliminar_sistema', fila: fila })
+                    body: new URLSearchParams({ password: pwdActual, accion: 'eliminar_sistema', fila: fila }),
+                    redirect: 'follow'
                 });
                 cerrarAlerta();
                 await recargarDatosSilencioso();
@@ -401,17 +376,17 @@
             }
         }
 
-        // Función para recargar la grilla sin pasar por la pantalla de login
         async function recargarDatosSilencioso() {
             const res = await fetch(GAS_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: new URLSearchParams({ 'password': pwdActual, 'accion': 'leer_sistemas' })
+                body: new URLSearchParams({ 'password': pwdActual, 'accion': 'leer_sistemas' }),
+                redirect: 'follow'
             });
             const datos = await res.json();
             if(datos.status === "success") {
                 sistemasData = datos.data;
-                filtrarSistemas(); // Mantiene la búsqueda si había alguna y renderiza
+                filtrarSistemas(); 
             }
         }
     </script>
