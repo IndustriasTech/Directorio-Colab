@@ -21,7 +21,7 @@
         #login-container { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; padding: 20px; }
         .login-box { background-color: var(--card-bg); padding: 40px; border-radius: 12px; border: 1px solid var(--border); text-align: center; width: 100%; max-width: 350px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5); min-height: 250px; display: flex; flex-direction: column; justify-content: center; }
         .login-box h2 { margin-top: 0; color: var(--accent); }
-        input[type="password"], input[type="text"], textarea { width: 100%; padding: 12px; margin: 10px 0; border-radius: 6px; border: 1px solid var(--border); background-color: var(--bg-color); color: var(--text-main); font-size: 14px; box-sizing: border-box; }
+        input[type="password"], input[type="text"], textarea, select { width: 100%; padding: 12px; margin: 10px 0; border-radius: 6px; border: 1px solid var(--border); background-color: var(--bg-color); color: var(--text-main); font-size: 14px; box-sizing: border-box; }
         
         .check-container { display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 14px; color: var(--text-muted); }
         .check-container input { width: auto; margin-right: 10px; }
@@ -32,6 +32,8 @@
         .btn-danger { background-color: var(--danger); }
         .btn-danger:hover:not(:disabled) { background-color: #dc2626; }
         .btn-admin { background-color: var(--admin); width: auto; margin-right: 10px;}
+        .btn-editar { background-color: var(--admin); margin-top: 10px; display: none; }
+        .btn-editar:hover:not(:disabled) { background-color: #d97706; }
         
         #dashboard { display: none; padding: 40px 20px; max-width: 1200px; margin: 0 auto; width: 100%; box-sizing: border-box; }
         .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--border); padding-bottom: 20px; margin-bottom: 30px; flex-wrap: wrap; gap: 10px; }
@@ -55,6 +57,8 @@
         .btn-abrir { display: block; text-align: center; text-decoration: none; background-color: var(--border); color: var(--text-main); padding: 10px; border-radius: 6px; transition: 0.3s; margin-top: auto; font-weight: bold; }
         .btn-abrir:hover { background-color: var(--text-muted); color: var(--bg-color); }
         .btn-eliminar { background-color: var(--danger); margin-top: 10px; display: none; }
+        .acciones-admin { display: flex; gap: 10px; }
+        .acciones-admin button { flex: 1; }
         
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); justify-content: center; align-items: center; z-index: 1000; }
         .modal-content { background: var(--card-bg); padding: 30px; border-radius: 10px; width: 90%; max-width: 500px; border: 1px solid var(--border); max-height: 90vh; overflow-y: auto; text-align: center; }
@@ -89,7 +93,6 @@
 
     <div id="dashboard">
         <div class="header">
-            <!-- Título con enlace directo para recargar la página -->
             <a href="https://industriastech.github.io/Directorio-Colab/" class="logo-link">
                 <svg width="30" height="30" viewBox="0 0 100 100"><rect width="100" height="100" rx="20" fill="#10b981"/><circle cx="50" cy="50" r="25" fill="none" stroke="white" stroke-width="12" stroke-dasharray="20 10"/><circle cx="50" cy="50" r="10" fill="white"/></svg>
                 <h1>Directorio de Sistemas</h1>
@@ -100,26 +103,35 @@
             </div>
         </div>
         
-        <button id="btn-add-float" onclick="abrirModalAdd()">+ Agregar Nuevo Sistema</button>
+        <button id="btn-add-float" onclick="abrirModalForm()">+ Agregar Nuevo Sistema</button>
         <input type="text" id="buscador" class="search-bar" placeholder="🔍 Buscar sistema por título o etiqueta..." onkeyup="filtrarSistemas()">
         
         <div class="grid" id="sistemas-grid"></div>
     </div>
 
-    <div id="modal-agregar" class="modal-overlay">
+    <!-- Modal Formulario (Sirve para Agregar y Editar) -->
+    <div id="modal-formulario" class="modal-overlay">
         <div class="modal-content" style="text-align: left;">
-            <h3>Agregar Nuevo Sistema</h3>
-            <input type="text" id="add-titulo" placeholder="Título del Sistema">
-            <textarea id="add-desc" placeholder="Descripción corta" rows="3"></textarea>
-            <input type="text" id="add-enlace" placeholder="Enlace (URL)">
-            <input type="text" id="add-cuenta" placeholder="Cuenta de Google (Ej. Principal)">
-            <input type="text" id="add-tags" placeholder="Etiquetas (separadas por coma)">
-            <input type="text" id="add-estado" placeholder="Estado (Ej. Activo)">
-            <input type="text" id="add-notas" placeholder="Notas técnicas o comandos">
+            <h3 id="form-titulo-modal">Agregar Nuevo Sistema</h3>
+            <input type="text" id="form-titulo" placeholder="Título del Sistema">
+            <textarea id="form-desc" placeholder="Descripción corta" rows="3"></textarea>
+            <input type="text" id="form-enlace" placeholder="Enlace (URL)">
+            <input type="text" id="form-cuenta" placeholder="Cuenta de Google (Ej. Principal)">
+            <input type="text" id="form-tags" placeholder="Etiquetas (separadas por coma)">
+            
+            <!-- Menú Desplegable para el Estado -->
+            <select id="form-estado">
+                <option value="" disabled selected>Selecciona el estado...</option>
+                <option value="🟢 Activo">🟢 Activo</option>
+                <option value="🟡 En Mantenimiento">🟡 En Mantenimiento</option>
+                <option value="🔴 Caído / Desactualizado">🔴 Caído / Desactualizado</option>
+            </select>
+
+            <input type="text" id="form-notas" placeholder="Notas técnicas o comandos">
             
             <div class="modal-btns">
-                <button id="btn-guardar-sis" onclick="agregarSistema()">Guardar Sistema</button>
-                <button class="btn-danger" onclick="cerrarModalAdd()">Cancelar</button>
+                <button id="btn-guardar-sis" onclick="guardarSistema()">Guardar Sistema</button>
+                <button class="btn-danger" onclick="cerrarModalForm()">Cancelar</button>
             </div>
         </div>
     </div>
@@ -136,11 +148,12 @@
     </div>
 
     <script>
-        const GAS_URL = "https://script.google.com/macros/s/AKfycbzW_0cnx_qWNxgHum6Ejh1nIKSm-oDPY2IC0Zp_W0smjYOhx-qbItIX8laXSRRn33cA/exec";
+        const GAS_URL = "https://script.google.com/macros/s/AKfycbz3F62KGe8CCpok1nRkv1gVbhFMw5BAXHOMuD3IG-TpXQrx12pLiz7fqmgu_pYhGnY/exec";
         let sistemasData = [];
         let pwdActual = "";
         let modoAdmin = false;
         let accionConfirmada = null; 
+        let filaEnEdicion = null; // Variable para saber si estamos editando
 
         function mostrarAlerta(mensaje, titulo = "Aviso") {
             document.getElementById('alerta-titulo').innerText = titulo;
@@ -275,7 +288,10 @@
                         <span><strong>Notas:</strong> ${sistema.notas || "N/A"}</span>
                     </div>
                     <a href="${linkCorregido}" target="_blank" class="btn-abrir">Abrir en Colab 🚀</a>
-                    <button class="btn-eliminar" onclick="iniciarEliminacion(${sistema.fila})">🗑️ Eliminar Sistema</button>
+                    <div class="acciones-admin">
+                        <button class="btn-editar" onclick="abrirModalForm(${sistema.fila})">✏️ Editar</button>
+                        <button class="btn-eliminar" onclick="iniciarEliminacion(${sistema.fila})">🗑️ Eliminar</button>
+                    </div>
                 `;
                 grid.appendChild(card);
             });
@@ -297,36 +313,84 @@
             const btnToggle = document.getElementById('btn-admin-toggle');
             const btnAdd = document.getElementById('btn-add-float');
             const btnsDelete = document.querySelectorAll('.btn-eliminar');
+            const btnsEdit = document.querySelectorAll('.btn-editar');
 
             if(modoAdmin) {
                 btnToggle.innerText = "❌ Salir de Admin";
                 btnAdd.style.display = "block";
                 btnsDelete.forEach(b => b.style.display = "block");
+                btnsEdit.forEach(b => b.style.display = "block");
             } else {
                 btnToggle.innerText = "⚙️ Modo Admin";
                 btnAdd.style.display = "none";
                 btnsDelete.forEach(b => b.style.display = "none");
+                btnsEdit.forEach(b => b.style.display = "none");
             }
         }
 
-        function abrirModalAdd() { document.getElementById('modal-agregar').style.display = "flex"; }
-        function cerrarModalAdd() { document.getElementById('modal-agregar').style.display = "none"; }
+        /* --- Lógica del Formulario (Agregar y Editar) --- */
+        function abrirModalForm(fila = null) {
+            filaEnEdicion = fila;
+            const tituloModal = document.getElementById('form-titulo-modal');
+            const btnGuardar = document.getElementById('btn-guardar-sis');
 
-        async function agregarSistema() {
+            if (fila) {
+                // Modo Edición
+                tituloModal.innerText = "Editar Sistema";
+                btnGuardar.innerText = "Guardar Cambios";
+                const sistema = sistemasData.find(s => s.fila === fila);
+                
+                document.getElementById('form-titulo').value = sistema.titulo;
+                document.getElementById('form-desc').value = sistema.descripcion;
+                document.getElementById('form-enlace').value = sistema.enlace;
+                document.getElementById('form-cuenta').value = sistema.cuenta;
+                document.getElementById('form-tags').value = sistema.etiquetas;
+                document.getElementById('form-notas').value = sistema.notas;
+                
+                // Seleccionar el estado correcto si existe en el menú
+                const selectEstado = document.getElementById('form-estado');
+                selectEstado.value = sistema.estado || "";
+                if(selectEstado.selectedIndex === -1) selectEstado.value = ""; // Por si había un texto viejo no compatible
+
+            } else {
+                // Modo Agregar Nuevo
+                tituloModal.innerText = "Agregar Nuevo Sistema";
+                btnGuardar.innerText = "Guardar Sistema";
+                document.querySelectorAll('#modal-formulario input, #modal-formulario textarea').forEach(i => i.value = '');
+                document.getElementById('form-estado').value = "";
+            }
+
+            document.getElementById('modal-formulario').style.display = "flex";
+        }
+
+        function cerrarModalForm() { 
+            document.getElementById('modal-formulario').style.display = "none"; 
+        }
+
+        async function guardarSistema() {
             const btn = document.getElementById('btn-guardar-sis');
-            const tituloVal = document.getElementById('add-titulo').value;
+            const tituloVal = document.getElementById('form-titulo').value;
             
-            if(!tituloVal) return mostrarAlerta("El título es obligatorio para guardar un sistema.", "Campo Incompleto");
+            if(!tituloVal) return mostrarAlerta("El título es obligatorio para guardar.", "Campo Incompleto");
 
             btn.innerHTML = `<div class="spinner"></div> Guardando...`;
             btn.disabled = true;
             
             const payload = {
-                password: pwdActual, accion: 'agregar_sistema', titulo: tituloVal,
-                descripcion: document.getElementById('add-desc').value, enlace: document.getElementById('add-enlace').value,
-                cuenta: document.getElementById('add-cuenta').value, etiquetas: document.getElementById('add-tags').value,
-                estado: document.getElementById('add-estado').value, notas: document.getElementById('add-notas').value
+                password: pwdActual, 
+                accion: filaEnEdicion ? 'editar_sistema' : 'agregar_sistema', 
+                titulo: tituloVal,
+                descripcion: document.getElementById('form-desc').value, 
+                enlace: document.getElementById('form-enlace').value,
+                cuenta: document.getElementById('form-cuenta').value, 
+                etiquetas: document.getElementById('form-tags').value,
+                estado: document.getElementById('form-estado').value, 
+                notas: document.getElementById('form-notas').value
             };
+
+            if (filaEnEdicion) {
+                payload.fila = filaEnEdicion;
+            }
 
             try {
                 await fetch(GAS_URL, {
@@ -336,14 +400,12 @@
                     redirect: 'follow'
                 });
                 
-                document.querySelectorAll('#modal-agregar input, #modal-agregar textarea').forEach(i => i.value = '');
-                cerrarModalAdd();
+                cerrarModalForm();
                 await recargarDatosSilencioso();
             } catch (e) {
-                mostrarAlerta("Hubo un error al intentar guardar el sistema.", "Error");
+                mostrarAlerta("Hubo un error al intentar guardar los datos.", "Error");
             }
             
-            btn.innerHTML = "Guardar Sistema";
             btn.disabled = false;
         }
 
