@@ -14,170 +14,73 @@
             --accent-hover: #059669;
             --danger: #ef4444;
             --border: #334155;
+            --admin: #f59e0b;
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        /* Pantalla de Login */
-        #login-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            flex: 1;
-            padding: 20px;
-        }
-
-        .login-box {
-            background-color: var(--card-bg);
-            padding: 40px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            text-align: center;
-            width: 100%;
-            max-width: 350px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
-        }
-
-        .login-box h2 { margin-top: 0; color: var(--accent); }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--bg-color); color: var(--text-main); margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
         
-        input[type="password"] {
-            width: 90%;
-            padding: 12px;
-            margin: 20px 0;
-            border-radius: 6px;
-            border: 1px solid var(--border);
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-size: 16px;
-        }
+        /* Login */
+        #login-container { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; padding: 20px; }
+        .login-box { background-color: var(--card-bg); padding: 40px; border-radius: 12px; border: 1px solid var(--border); text-align: center; width: 100%; max-width: 350px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5); }
+        .login-box h2 { margin-top: 0; color: var(--accent); }
+        input[type="password"], input[type="text"], textarea, select { width: 90%; padding: 12px; margin: 10px 0; border-radius: 6px; border: 1px solid var(--border); background-color: var(--bg-color); color: var(--text-main); font-size: 14px; box-sizing: border-box; }
+        
+        .check-container { display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 14px; color: var(--text-muted); }
+        .check-container input { width: auto; margin-right: 10px; }
 
-        button {
-            background-color: var(--accent);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 6px;
-            font-size: 16px;
-            cursor: pointer;
-            font-weight: bold;
-            width: 100%;
-            transition: background-color 0.3s;
-        }
-
+        button { background-color: var(--accent); color: white; border: none; padding: 12px 24px; border-radius: 6px; font-size: 16px; cursor: pointer; font-weight: bold; width: 100%; transition: background-color 0.3s; }
         button:hover { background-color: var(--accent-hover); }
-
-        /* Panel Principal (Oculto al inicio) */
-        #dashboard {
-            display: none;
-            padding: 40px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid var(--border);
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-        }
-
+        .btn-danger { background-color: var(--danger); }
+        .btn-danger:hover { background-color: #dc2626; }
+        .btn-admin { background-color: var(--admin); width: auto; margin-right: 10px;}
+        
+        /* Dashboard */
+        #dashboard { display: none; padding: 40px 20px; max-width: 1200px; margin: 0 auto; width: 100%; box-sizing: border-box; }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--border); padding-bottom: 20px; margin-bottom: 30px; flex-wrap: wrap; gap: 10px; }
         .header h1 { margin: 0; color: var(--accent); }
+        .header-btns { display: flex; }
+        
+        .search-bar { width: 100%; padding: 12px; border-radius: 6px; border: 1px solid var(--border); background-color: var(--card-bg); color: var(--text-main); font-size: 16px; margin-bottom: 30px; box-sizing: border-box; }
 
-        .search-bar {
-            width: 100%;
-            padding: 12px;
-            border-radius: 6px;
-            border: 1px solid var(--border);
-            background-color: var(--card-bg);
-            color: var(--text-main);
-            font-size: 16px;
-            margin-bottom: 30px;
-            box-sizing: border-box;
-        }
-
-        /* Grid de Tarjetas */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-        }
-
+        /* Tarjetas */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .card { background-color: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 20px; display: flex; flex-direction: column; position: relative; }
         .card h3 { margin: 0 0 10px 0; font-size: 20px; }
         .card p.desc { color: var(--text-muted); font-size: 14px; margin-bottom: 20px; flex-grow: 1; }
-        
-        .meta-info {
-            font-size: 13px;
-            background-color: var(--bg-color);
-            padding: 10px;
-            border-radius: 6px;
-            margin-bottom: 15px;
-            border: 1px dashed var(--border);
-        }
-
+        .meta-info { font-size: 13px; background-color: var(--bg-color); padding: 10px; border-radius: 6px; margin-bottom: 15px; border: 1px dashed var(--border); }
         .meta-info span { display: block; margin-bottom: 5px; }
         .meta-info strong { color: var(--accent); }
-
-        .tag {
-            display: inline-block;
-            background-color: #3b82f6;
-            color: white;
-            font-size: 12px;
-            padding: 4px 8px;
-            border-radius: 4px;
-            margin-right: 5px;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        .btn-abrir {
-            display: block;
-            text-align: center;
-            text-decoration: none;
-            background-color: var(--border);
-            color: var(--text-main);
-            padding: 10px;
-            border-radius: 6px;
-            transition: 0.3s;
-        }
-
+        .tag { display: inline-block; background-color: #3b82f6; color: white; font-size: 12px; padding: 4px 8px; border-radius: 4px; margin-right: 5px; margin-bottom: 5px; font-weight: bold; }
+        
+        .btn-abrir { display: block; text-align: center; text-decoration: none; background-color: var(--border); color: var(--text-main); padding: 10px; border-radius: 6px; transition: 0.3s; margin-top: auto; }
         .btn-abrir:hover { background-color: var(--text-muted); color: var(--bg-color); }
-        #loading { color: var(--accent); font-weight: bold; margin-top: 15px; display: none; }
+        .btn-eliminar { background-color: var(--danger); margin-top: 10px; display: none; }
+        
+        #loading { color: var(--accent); font-weight: bold; margin-top: 15px; display: none; text-align: center; }
 
+        /* Modal Agregar */
+        #modal-agregar { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center; z-index: 1000; }
+        .modal-content { background: var(--card-bg); padding: 30px; border-radius: 10px; width: 90%; max-width: 500px; border: 1px solid var(--border); max-height: 90vh; overflow-y: auto; }
+        .modal-content h3 { margin-top: 0; color: var(--accent); }
+        .modal-btns { display: flex; gap: 10px; margin-top: 20px; }
+        
+        #btn-add-float { display: none; margin-bottom: 20px; background-color: var(--accent); }
     </style>
 </head>
-<body>
+<body onload="checkAutoLogin()">
 
     <!-- Pantalla de Login -->
     <div id="login-container">
         <div class="login-box">
             <h2>IndustriasTech</h2>
-            <p>Bóveda de Sistemas Colab</p>
-            <input type="password" id="passInput" placeholder="Introduce la contraseña" onkeypress="handleEnter(event)">
+            <p>Bóveda de Sistemas</p>
+            <input type="password" id="passInput" placeholder="Contraseña maestra" onkeypress="handleEnter(event)">
+            <div class="check-container">
+                <input type="checkbox" id="recordarme">
+                <label for="recordarme">Mantener sesión iniciada</label>
+            </div>
             <button onclick="verificarAcceso()">Desencriptar Directorio</button>
-            <div id="loading">Autenticando y descargando datos...</div>
+            <div id="loading">Autenticando y sincronizando...</div>
         </div>
     </div>
 
@@ -185,116 +88,216 @@
     <div id="dashboard">
         <div class="header">
             <h1>Directorio de Sistemas</h1>
-            <button style="width: auto; background-color: var(--danger);" onclick="cerrarSesion()">Bloquear Bóveda</button>
+            <div class="header-btns">
+                <button class="btn-admin" onclick="toggleAdmin()" id="btn-admin-toggle">⚙️ Modo Admin</button>
+                <button style="width: auto;" class="btn-danger" onclick="cerrarSesion()">Cerrar Sesión</button>
+            </div>
         </div>
         
+        <button id="btn-add-float" onclick="abrirModal()">+ Agregar Nuevo Sistema</button>
         <input type="text" id="buscador" class="search-bar" placeholder="🔍 Buscar sistema por título o etiqueta..." onkeyup="filtrarSistemas()">
         
-        <div class="grid" id="sistemas-grid">
-            <!-- Las tarjetas se generan aquí con JavaScript -->
+        <div class="grid" id="sistemas-grid"></div>
+    </div>
+
+    <!-- Modal Agregar -->
+    <div id="modal-agregar">
+        <div class="modal-content">
+            <h3>Agregar Nuevo Sistema</h3>
+            <input type="text" id="add-titulo" placeholder="Título del Sistema">
+            <textarea id="add-desc" placeholder="Descripción corta" rows="3"></textarea>
+            <input type="text" id="add-enlace" placeholder="Enlace (URL)">
+            <input type="text" id="add-cuenta" placeholder="Cuenta de Google (Ej. Principal)">
+            <input type="text" id="add-tags" placeholder="Etiquetas (separadas por coma)">
+            <input type="text" id="add-estado" placeholder="Estado (Ej. Activo)">
+            <input type="text" id="add-notas" placeholder="Notas técnicas o comandos">
+            
+            <div class="modal-btns">
+                <button onclick="agregarSistema()">Guardar Sistema</button>
+                <button class="btn-danger" onclick="cerrarModal()">Cancelar</button>
+            </div>
         </div>
     </div>
 
     <script>
-        // Tu enlace de Google Apps Script
-        const GAS_URL = "https://script.google.com/macros/s/AKfycbwlwUKI1Ppv5V2EU7u5RE-xH008OMqOFDcFt7LOxe4IXdJ16BZMjxegXFEOzXgFsdJY/exec";
-        let sistemasData = []; // Guardar los datos para el buscador
+        const GAS_URL = "https://script.google.com/macros/s/AKfycbzW_0cnx_qWNxgHum6Ejh1nIKSm-oDPY2IC0Zp_W0smjYOhx-qbItIX8laXSRRn33cA/exec";
+        let sistemasData = [];
+        let pwdActual = "";
+        let modoAdmin = false;
 
-        function handleEnter(e) {
-            if (e.key === 'Enter') verificarAcceso();
+        function checkAutoLogin() {
+            const guardada = localStorage.getItem("industrias_pwd");
+            if(guardada) {
+                document.getElementById('passInput').value = guardada;
+                document.getElementById('recordarme').checked = true;
+                verificarAcceso();
+            }
         }
+
+        function handleEnter(e) { if (e.key === 'Enter') verificarAcceso(); }
 
         async function verificarAcceso() {
             const password = document.getElementById('passInput').value;
             const loading = document.getElementById('loading');
-            
-            if(!password) {
-                alert("Por favor, ingresa una contraseña.");
-                return;
-            }
+            if(!password) return alert("Ingresa la contraseña.");
 
             loading.style.display = "block";
-
             try {
-                // Hacemos la petición POST al Apps Script
-                const respuesta = await fetch(GAS_URL, {
+                const res = await fetch(GAS_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: new URLSearchParams({
-                        'password': password,
-                        'accion': 'leer_sistemas'
-                    })
+                    body: new URLSearchParams({ 'password': password, 'accion': 'leer_sistemas' })
                 });
-
-                const datos = await respuesta.json();
+                const datos = await res.json();
 
                 if(datos.status === "success") {
-                    sistemasData = datos.data; // Guardamos en memoria
+                    pwdActual = password;
+                    sistemasData = datos.data;
+                    
+                    if(document.getElementById('recordarme').checked) {
+                        localStorage.setItem("industrias_pwd", password);
+                    } else {
+                        localStorage.removeItem("industrias_pwd");
+                    }
+                    
                     mostrarDashboard();
                     renderizarTarjetas(sistemasData);
                 } else {
-                    alert(datos.message); // Muestra "Acceso Denegado"
+                    alert(datos.message);
+                    localStorage.removeItem("industrias_pwd");
                 }
-
-            } catch (error) {
-                alert("Error de conexión. Revisa tu internet o el enlace del script.");
-            } finally {
-                loading.style.display = "none";
+            } catch (e) {
+                alert("Error de conexión con la base de datos.");
             }
+            loading.style.display = "none";
+        }
+
+        function cerrarSesion() {
+            localStorage.removeItem("industrias_pwd");
+            pwdActual = "";
+            sistemasData = [];
+            document.getElementById('dashboard').style.display = "none";
+            document.getElementById('login-container').style.display = "flex";
+            document.getElementById('passInput').value = "";
+            modoAdmin = false;
+            actualizarUIAdmin();
         }
 
         function mostrarDashboard() {
             document.getElementById('login-container').style.display = "none";
             document.getElementById('dashboard').style.display = "block";
-            document.getElementById('passInput').value = ""; // Limpiar por seguridad
         }
 
-        function cerrarSesion() {
-            document.getElementById('dashboard').style.display = "none";
-            document.getElementById('login-container').style.display = "flex";
-            sistemasData = []; // Borrar de la memoria
-            document.getElementById('sistemas-grid').innerHTML = "";
+        // Corrector de enlaces
+        function formatearEnlace(url) {
+            if(!url) return "#";
+            let link = url.trim();
+            if (!/^https?:\/\//i.test(link)) { link = 'https://' + link; }
+            return link;
         }
 
         function renderizarTarjetas(datos) {
             const grid = document.getElementById('sistemas-grid');
-            grid.innerHTML = ""; // Limpiar contenedor
+            grid.innerHTML = ""; 
 
             datos.forEach(sistema => {
-                // Crear las etiquetas HTML (dividir por comas)
                 let etiquetasHTML = "";
                 if(sistema.etiquetas) {
-                    const tags = sistema.etiquetas.split(',');
-                    tags.forEach(t => {
+                    sistema.etiquetas.split(',').forEach(t => {
                         etiquetasHTML += `<span class="tag">${t.trim()}</span>`;
                     });
                 }
 
-                // Plantilla de la tarjeta
+                const linkCorregido = formatearEnlace(sistema.enlace);
+
                 const card = document.createElement('div');
                 card.className = "card";
                 card.innerHTML = `
                     <h3>${sistema.titulo}</h3>
                     <div style="margin-bottom: 10px;">${etiquetasHTML}</div>
-                    <p class="desc">${sistema.descripcion || "Sin descripción."}</p>
+                    <p class="desc">${sistema.descripcion}</p>
                     <div class="meta-info">
-                        <span><strong>Cuenta:</strong> ${sistema.cuenta || "N/A"}</span>
-                        <span><strong>Estado:</strong> ${sistema.estado || "N/A"}</span>
-                        <span><strong>Notas:</strong> ${sistema.notas || "N/A"}</span>
+                        <span><strong>Cuenta:</strong> ${sistema.cuenta}</span>
+                        <span><strong>Estado:</strong> ${sistema.estado}</span>
+                        <span><strong>Notas:</strong> ${sistema.notas}</span>
                     </div>
-                    <a href="${sistema.enlace}" target="_blank" class="btn-abrir">Abrir en Colab 🚀</a>
+                    <a href="${linkCorregido}" target="_blank" class="btn-abrir">Abrir en Colab 🚀</a>
+                    <button class="btn-eliminar" onclick="eliminarSistema(${sistema.fila})">🗑️ Eliminar</button>
                 `;
                 grid.appendChild(card);
             });
+            actualizarUIAdmin();
         }
 
         function filtrarSistemas() {
             const texto = document.getElementById('buscador').value.toLowerCase();
-            const filtrados = sistemasData.filter(sis => {
-                const contenido = (sis.titulo + " " + sis.etiquetas + " " + sis.descripcion).toLowerCase();
-                return contenido.includes(texto);
-            });
+            const filtrados = sistemasData.filter(s => (s.titulo + " " + s.etiquetas + " " + s.descripcion).toLowerCase().includes(texto));
             renderizarTarjetas(filtrados);
+        }
+
+        /* --- FUNCIONES ADMINISTRADOR --- */
+        function toggleAdmin() {
+            modoAdmin = !modoAdmin;
+            actualizarUIAdmin();
+        }
+
+        function actualizarUIAdmin() {
+            const btnToggle = document.getElementById('btn-admin-toggle');
+            const btnAdd = document.getElementById('btn-add-float');
+            const btnsDelete = document.querySelectorAll('.btn-eliminar');
+
+            if(modoAdmin) {
+                btnToggle.innerText = "❌ Salir Admin";
+                btnAdd.style.display = "block";
+                btnsDelete.forEach(b => b.style.display = "block");
+            } else {
+                btnToggle.innerText = "⚙️ Modo Admin";
+                btnAdd.style.display = "none";
+                btnsDelete.forEach(b => b.style.display = "none");
+            }
+        }
+
+        function abrirModal() { document.getElementById('modal-agregar').style.display = "flex"; }
+        function cerrarModal() { document.getElementById('modal-agregar').style.display = "none"; }
+
+        async function agregarSistema() {
+            const btn = event.target;
+            btn.innerText = "Guardando...";
+            
+            const payload = {
+                password: pwdActual,
+                accion: 'agregar_sistema',
+                titulo: document.getElementById('add-titulo').value,
+                descripcion: document.getElementById('add-desc').value,
+                enlace: document.getElementById('add-enlace').value,
+                cuenta: document.getElementById('add-cuenta').value,
+                etiquetas: document.getElementById('add-tags').value,
+                estado: document.getElementById('add-estado').value,
+                notas: document.getElementById('add-notas').value
+            };
+
+            await fetch(GAS_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams(payload)
+            });
+
+            // Limpiar form y recargar
+            document.querySelectorAll('#modal-agregar input, #modal-agregar textarea').forEach(i => i.value = '');
+            btn.innerText = "Guardar Sistema";
+            cerrarModal();
+            verificarAcceso(); // Recargar datos
+        }
+
+        async function eliminarSistema(fila) {
+            if(!confirm("¿Estás seguro de que quieres eliminar este sistema?")) return;
+            
+            await fetch(GAS_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({ password: pwdActual, accion: 'eliminar_sistema', fila: fila })
+            });
+            verificarAcceso(); // Recargar datos
         }
     </script>
 </body>
